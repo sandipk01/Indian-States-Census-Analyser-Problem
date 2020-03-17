@@ -1,7 +1,9 @@
 package com.bridgelabz.censusanalyser.service;
+
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -22,14 +24,14 @@ public class StateCensusAnalyser {
                 .withType(CSVStateCensus.class)
                 .withIgnoreLeadingWhiteSpace(true)
                 .build();
-       Iterator iterator=csvToBean.iterator();
+        Iterator iterator = csvToBean.iterator();
         return iterator;
     }
 
     public int size() throws IOException {
-        int counter=0;
-        Iterator itr=load();
-        while(itr.hasNext()){
+        int counter = 0;
+        Iterator itr = load();
+        while (itr.hasNext()) {
             counter++;
             itr.next();
         }
