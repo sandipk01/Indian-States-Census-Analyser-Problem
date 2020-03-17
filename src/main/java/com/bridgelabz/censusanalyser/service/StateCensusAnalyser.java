@@ -1,5 +1,6 @@
 package com.bridgelabz.censusanalyser.service;
 
+import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -7,6 +8,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
@@ -28,9 +30,14 @@ public class StateCensusAnalyser {
         return iterator;
     }
 
-    public int size() throws IOException {
+    public int size() throws StateCensusAnalyserException {
         int counter = 0;
-        Iterator itr = load();
+        Iterator itr = null;
+        try {
+            itr = load();
+        } catch (IOException e) {
+            throw new StateCensusAnalyserException("No such file found", StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+        }
         while (itr.hasNext()) {
             counter++;
             itr.next();
