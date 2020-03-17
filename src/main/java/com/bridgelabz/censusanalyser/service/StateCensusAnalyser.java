@@ -1,5 +1,5 @@
-package com.bridgelabz.censusanalyser;
-import com.bridgelabz.model.CSVStateCensus;
+package com.bridgelabz.censusanalyser.service;
+import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 public class StateCensusAnalyser {
 
-    private static String fileName;
+    private String fileName;
 
     public StateCensusAnalyser(String fileName) {
         this.fileName = fileName;
