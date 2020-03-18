@@ -1,10 +1,13 @@
 package com.bridgelabz.censusanalyser.test;
+
 import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
 import com.bridgelabz.censusanalyser.service.CsvStates;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.io.IOException;
+
 import static com.bridgelabz.censusanalyser.utils.Constants.*;
 
 public class TestStateAnalyser {
@@ -67,7 +70,7 @@ public class TestStateAnalyser {
         try {
             csvStates.loadCsvState();
         } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION,e.type);
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION, e.type);
         }
     }
 
@@ -83,9 +86,19 @@ public class TestStateAnalyser {
 
     @Test
     public void givenStateCodeFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException() throws IOException {
-        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(INCORRECT_STATE_CODE_CSV_FILE);
+        CsvStates csvStates = new CsvStates(INCORRECT_STATE_CODE_CSV_FILE);
         try {
-            stateCensusAnalyser.checkCsv();
+            csvStates.checkCsv();
+        } catch (StateCensusAnalyserException e) {
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
+        }
+    }
+
+    @Test
+    public void givenStateCodeFileHeader_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException() throws IOException {
+        CsvStates csvStates = new CsvStates(INCORRECT_STATE_CODE_HEADER_FILE);
+        try {
+            csvStates.checkCsv();
         } catch (StateCensusAnalyserException e) {
             Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
