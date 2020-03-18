@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/model/CSVStateCensus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/model/CSVStateCensus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/model/CsvStateCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/model/CsvStateCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/service/CsvStates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/service/CsvStates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bridgelabz/censusanalyser/utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bridgelabz/censusanalyser/test/TestStateAnalyser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bridgelabz/censusanalyser/test/TestStateAnalyser.java" afterDir="false" />
@@ -68,7 +70,7 @@
       <recent name="$PROJECT_DIR$/src/test/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.TestStateAnalyser.givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException">
+  <component name="RunManager" selected="Gradle.TestStateAnalyser">
     <configuration name="TestStateAnalyser" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -149,12 +151,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TestStateAnalyser.givenState_WhenCompared_ThenShouldMatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenState_WhenCompared_ThenShouldMatch&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -171,11 +173,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TestStateAnalyser" />
+        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" />
         <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException" />
         <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch" />
         <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeCsvFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException" />
-        <item itemvalue="Gradle.TestStateAnalyser.givenState_WhenCompared_ThenShouldMatch" />
-        <item itemvalue="Gradle.TestStateAnalyser" />
       </list>
     </recent_temporary>
   </component>
@@ -205,48 +207,37 @@
       <screen x="0" y="25" width="1366" height="743" />
     </state>
     <state x="491" y="115" width="374" height="561" key="#com.intellij.ide.util.MemberChooser/0.25.1366.743@0.25.1366.743" timestamp="1584425503653" />
-    <state width="1320" height="219" key="GridCell.Tab.0.bottom" timestamp="1584528374589">
+    <state width="1320" height="197" key="GridCell.Tab.0.bottom" timestamp="1584529160213">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.0.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584528374589" />
-    <state width="1320" height="219" key="GridCell.Tab.0.center" timestamp="1584528374588">
+    <state width="1320" height="197" key="GridCell.Tab.0.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584529160213" />
+    <state width="1320" height="197" key="GridCell.Tab.0.center" timestamp="1584529160213">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.0.center/0.25.1366.743@0.25.1366.743" timestamp="1584528374588" />
-    <state width="1320" height="219" key="GridCell.Tab.0.left" timestamp="1584528374588">
+    <state width="1320" height="197" key="GridCell.Tab.0.center/0.25.1366.743@0.25.1366.743" timestamp="1584529160213" />
+    <state width="1320" height="197" key="GridCell.Tab.0.left" timestamp="1584529160213">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.0.left/0.25.1366.743@0.25.1366.743" timestamp="1584528374588" />
-    <state width="1320" height="219" key="GridCell.Tab.0.right" timestamp="1584528374633">
+    <state width="1320" height="197" key="GridCell.Tab.0.left/0.25.1366.743@0.25.1366.743" timestamp="1584529160213" />
+    <state width="1320" height="197" key="GridCell.Tab.0.right" timestamp="1584529160213">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.0.right/0.25.1366.743@0.25.1366.743" timestamp="1584528374633" />
-    <state width="1320" height="219" key="GridCell.Tab.1.bottom" timestamp="1584528374589">
+    <state width="1320" height="197" key="GridCell.Tab.0.right/0.25.1366.743@0.25.1366.743" timestamp="1584529160213" />
+    <state width="1320" height="219" key="GridCell.Tab.1.bottom" timestamp="1584529150609">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.1.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584528374589" />
-    <state width="1320" height="219" key="GridCell.Tab.1.center" timestamp="1584528374589">
+    <state width="1320" height="219" key="GridCell.Tab.1.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584529150609" />
+    <state width="1320" height="219" key="GridCell.Tab.1.center" timestamp="1584529150608">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.1.center/0.25.1366.743@0.25.1366.743" timestamp="1584528374589" />
-    <state width="1320" height="219" key="GridCell.Tab.1.left" timestamp="1584528374589">
+    <state width="1320" height="219" key="GridCell.Tab.1.center/0.25.1366.743@0.25.1366.743" timestamp="1584529150608" />
+    <state width="1320" height="219" key="GridCell.Tab.1.left" timestamp="1584529150608">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.1.left/0.25.1366.743@0.25.1366.743" timestamp="1584528374589" />
-    <state width="1320" height="219" key="GridCell.Tab.1.right" timestamp="1584528374589">
+    <state width="1320" height="219" key="GridCell.Tab.1.left/0.25.1366.743@0.25.1366.743" timestamp="1584529150608" />
+    <state width="1320" height="219" key="GridCell.Tab.1.right" timestamp="1584529150609">
       <screen x="0" y="25" width="1366" height="743" />
     </state>
-    <state width="1320" height="219" key="GridCell.Tab.1.right/0.25.1366.743@0.25.1366.743" timestamp="1584528374589" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/bridgelabz/censusanalyser/test/TestStateAnalyser.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state width="1320" height="219" key="GridCell.Tab.1.right/0.25.1366.743@0.25.1366.743" timestamp="1584529150609" />
   </component>
 </project>
