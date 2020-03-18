@@ -22,6 +22,13 @@ public class CsvStates {
         this.filename = filename;
     }
 
+    public int checkCsv() throws IOException, StateCensusAnalyserException {
+        if (Utils.getFileExtension(new File(filename)).equals("csv"))
+            return loadCsvState();
+        else
+            throw new StateCensusAnalyserException("no csv file", StateCensusAnalyserException.TypeOfException.NO_CSV_FILE);
+    }
+
     public int loadCsvState() throws IOException, StateCensusAnalyserException {
         int counter = 0;
         try {
