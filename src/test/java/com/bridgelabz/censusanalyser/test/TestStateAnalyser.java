@@ -1,11 +1,15 @@
 package com.bridgelabz.censusanalyser.test;
 
 import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
+import com.bridgelabz.censusanalyser.model.CsvStateCode;
+import com.bridgelabz.censusanalyser.service.CsvStates;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
 import com.bridgelabz.censusanalyser.utils.Constants;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.io.IOException;
+
 import static com.bridgelabz.censusanalyser.utils.Constants.*;
 
 public class TestStateAnalyser {
@@ -54,5 +58,11 @@ public class TestStateAnalyser {
         } catch (StateCensusAnalyserException e) {
             Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
+    }
+
+    @Test
+    public void givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch() throws IOException {
+        CsvStates csvStates = new CsvStates(STATE_CODE_CSV);
+        Assert.assertEquals(37, csvStates.loadCsvState());
     }
 }
