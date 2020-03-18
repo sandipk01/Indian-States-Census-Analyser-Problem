@@ -61,8 +61,18 @@ public class TestStateAnalyser {
     }
 
     @Test
-    public void givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch() throws IOException {
+    public void givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch() throws IOException, StateCensusAnalyserException {
         CsvStates csvStates = new CsvStates(STATE_CODE_CSV);
         Assert.assertEquals(37, csvStates.loadCsvState());
+    }
+
+    @Test
+    public void givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException() throws IOException {
+        CsvStates csvStates = new CsvStates(WRONG_STATE_CODE_FILE_NAME);
+        try {
+            csvStates.loadCsvState();
+        } catch (StateCensusAnalyserException e) {
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION,e.type);
+        }
     }
 }
