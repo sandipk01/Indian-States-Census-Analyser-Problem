@@ -2,10 +2,10 @@ package com.bridgelabz.censusanalyser.model;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class CsvStateData {
+public class CsvStateCode {
     @CsvBindByName(column = "SrNo")
     private int srNo;
-    @CsvBindByName(column = "State")
+    @CsvBindByName(column = "StateName")
     private String stateName;
     @CsvBindByName(column = "TIN")
     private int tin;
