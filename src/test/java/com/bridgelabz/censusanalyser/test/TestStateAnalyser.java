@@ -2,18 +2,13 @@ package com.bridgelabz.censusanalyser.test;
 
 import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
+import com.bridgelabz.censusanalyser.utils.Constants;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.IOException;
+import static com.bridgelabz.censusanalyser.utils.Constants.*;
 
 public class TestStateAnalyser {
-
-    private static final String CSV_FILE_PATH = "/home/admin1/IdeaProjects/Indian-States-Census-Analyser-Problem/src/test/resources/StateCensusData.csv";
-    private static final String WRONG_CSV_FILE_NAME = "/home/admin1/IdeaProjects/Indian-States-Census-Analyser-Problem/src/test/resources/StateCensus.csv";
-    private static final String WRONG_CSV_FILE_TYPE = "/home/admin1/IdeaProjects/Indian-States-Census-Analyser-Problem/src/test/resources/StateCensusData.txt";
-    private static final String INCORRECT_CSV_FILE = "/home/admin1/IdeaProjects/Indian-States-Census-Analyser-Problem/src/test/resources/IncorrectStateCensusData.csv";
-    private static final String INCORRECT_HEADER_FILE = "/home/admin1/IdeaProjects/Indian-States-Census-Analyser-Problem/src/test/resources/IncorrectHeaderStateCensusData.csv";
 
     @Test
     public void givenNumberOfRecord_WhenCompared_ThenShouldMatch() throws IOException, StateCensusAnalyserException {
