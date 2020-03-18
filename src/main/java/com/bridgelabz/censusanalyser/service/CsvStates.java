@@ -45,6 +45,8 @@ public class CsvStates {
             }
         } catch (NoSuchFileException e) {
             throw new StateCensusAnalyserException("No such file found", StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+        } catch (RuntimeException e) {
+            throw new StateCensusAnalyserException("No such field found", StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
         }
         return counter;
     }
