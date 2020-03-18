@@ -1,15 +1,10 @@
 package com.bridgelabz.censusanalyser.test;
-
 import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
-import com.bridgelabz.censusanalyser.model.CsvStateCode;
 import com.bridgelabz.censusanalyser.service.CsvStates;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
-import com.bridgelabz.censusanalyser.utils.Constants;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.IOException;
-
 import static com.bridgelabz.censusanalyser.utils.Constants.*;
 
 public class TestStateAnalyser {
@@ -73,6 +68,16 @@ public class TestStateAnalyser {
             csvStates.loadCsvState();
         } catch (StateCensusAnalyserException e) {
             Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION,e.type);
+        }
+    }
+
+    @Test
+    public void givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException() throws IOException {
+        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(WRONG_STATE_CODE_FILE_TYPE);
+        try {
+            stateCensusAnalyser.checkCsv();
+        } catch (StateCensusAnalyserException e) {
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_CSV_FILE, e.type);
         }
     }
 }
