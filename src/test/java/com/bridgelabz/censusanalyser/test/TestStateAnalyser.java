@@ -73,11 +73,21 @@ public class TestStateAnalyser {
 
     @Test
     public void givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException() throws IOException {
-        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(WRONG_STATE_CODE_FILE_TYPE);
+        CsvStates csvStates = new CsvStates(WRONG_STATE_CODE_FILE_TYPE);
+        try {
+            csvStates.checkCsv();
+        } catch (StateCensusAnalyserException e) {
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_CSV_FILE, e.type);
+        }
+    }
+
+    @Test
+    public void givenStateCodeFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException() throws IOException {
+        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(INCORRECT_STATE_CODE_CSV_FILE);
         try {
             stateCensusAnalyser.checkCsv();
         } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_CSV_FILE, e.type);
+            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
     }
 }
