@@ -6,13 +6,20 @@ import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.Reader;
 import java.util.Iterator;
+import java.util.List;
 
 public class CsvBuilder implements ICSVBuilder {
 
     //Generic method to load the csv data
     public <E> Iterator<E> load(Reader reader, Class className) {
-        CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withType(className).build();
+        CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withIgnoreLeadingWhiteSpace(true).withType(className).build();
         return csvToBean.iterator();
+    }
+
+    //Generic method to load csv data using list
+    public <E> List loadList(Reader reader, Class className) {
+        CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withIgnoreLeadingWhiteSpace(true).withType(className).build();
+        return csvToBean.parse();
     }
 
     //Method for get size of data
