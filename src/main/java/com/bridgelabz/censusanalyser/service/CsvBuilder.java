@@ -7,13 +7,15 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.Reader;
 import java.util.Iterator;
 
-public class CsvBuilder {
+public class CsvBuilder implements ICSVBuilder {
 
-    public <E> Iterator load(Reader reader, Class className) {
+    //Generic method to load the csv data
+    public <E> Iterator<E> load(Reader reader, Class className) {
         CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withType(className).build();
         return csvToBean.iterator();
     }
 
+    //Method for get size of data
     public <E> int size(Iterator<E> iterator) {
         int counter = 0;
         while (iterator.hasNext()) {
