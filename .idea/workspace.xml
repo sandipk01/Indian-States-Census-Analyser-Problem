@@ -90,6 +90,26 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="TestStateAnalyser.givenFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="TestStateAnalyser.givenFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -110,12 +130,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TestStateAnalyser.givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestStateAnalyser.givenStateCodeFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -130,32 +150,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TestStateAnalyser.givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestStateAnalyser.givenStateCodeFileHeader_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.bridgelabz.censusanalyser.test.TestStateAnalyser.givenStateCodeFileHeader_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -173,10 +173,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.TestStateAnalyser" />
-        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileName_WhenIncorrect_ThenShouldThrowsNoSuchFileException" />
+        <item itemvalue="Gradle.TestStateAnalyser.givenFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" />
+        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileHeader_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" />
+        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileDelimiter_WhenInCorrect_ThenShouldThrowIncorrectDelimiterOrHeaderException" />
         <item itemvalue="Gradle.TestStateAnalyser.givenFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" />
-        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch" />
-        <item itemvalue="Gradle.TestStateAnalyser.givenStateCodeFileType_WhenInCorrect_ThenShouldThrowNoSuchFileException" />
       </list>
     </recent_temporary>
   </component>
@@ -202,10 +202,10 @@
       <screen x="0" y="25" width="1366" height="743" />
     </state>
     <state x="379" y="201" width="598" height="389" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1366.743@0.25.1366.743" timestamp="1584424818064" />
-    <state x="491" y="88" width="374" height="561" key="#com.intellij.ide.util.MemberChooser" timestamp="1585094427597">
+    <state x="491" y="88" width="374" height="561" key="#com.intellij.ide.util.MemberChooser" timestamp="1585111494535">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="491" y="88" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1585094427597" />
+    <state x="491" y="88" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1585111494535" />
     <state x="491" y="115" width="374" height="561" key="#com.intellij.ide.util.MemberChooser/0.25.1366.743@0.25.1366.743" timestamp="1584425503653" />
     <state x="531" y="251" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1585093880814">
       <screen x="0" y="0" width="1366" height="728" />
@@ -215,45 +215,45 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1585094821286" />
-    <state width="1322" height="238" key="GridCell.Tab.0.bottom" timestamp="1585110645565">
+    <state width="1322" height="235" key="GridCell.Tab.0.bottom" timestamp="1585114803420">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="238" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585110645565" />
+    <state width="1322" height="235" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585114803420" />
     <state width="1320" height="197" key="GridCell.Tab.0.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584537632125" />
-    <state width="1322" height="238" key="GridCell.Tab.0.center" timestamp="1585110645565">
+    <state width="1322" height="235" key="GridCell.Tab.0.center" timestamp="1585114803420">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="238" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585110645565" />
+    <state width="1322" height="235" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585114803420" />
     <state width="1320" height="197" key="GridCell.Tab.0.center/0.25.1366.743@0.25.1366.743" timestamp="1584537632125" />
-    <state width="1322" height="238" key="GridCell.Tab.0.left" timestamp="1585110645565">
+    <state width="1322" height="235" key="GridCell.Tab.0.left" timestamp="1585114803420">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="238" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585110645565" />
+    <state width="1322" height="235" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585114803420" />
     <state width="1320" height="197" key="GridCell.Tab.0.left/0.25.1366.743@0.25.1366.743" timestamp="1584537632124" />
-    <state width="1322" height="238" key="GridCell.Tab.0.right" timestamp="1585110645565">
+    <state width="1322" height="235" key="GridCell.Tab.0.right" timestamp="1585114803420">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="238" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585110645565" />
+    <state width="1322" height="235" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585114803420" />
     <state width="1320" height="197" key="GridCell.Tab.0.right/0.25.1366.743@0.25.1366.743" timestamp="1584537632125" />
-    <state width="1322" height="184" key="GridCell.Tab.1.bottom" timestamp="1585109854543">
+    <state width="1322" height="121" key="GridCell.Tab.1.bottom" timestamp="1585114689541">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="184" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585109854543" />
+    <state width="1322" height="121" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585114689541" />
     <state width="1320" height="219" key="GridCell.Tab.1.bottom/0.25.1366.743@0.25.1366.743" timestamp="1584530382303" />
-    <state width="1322" height="184" key="GridCell.Tab.1.center" timestamp="1585109854543">
+    <state width="1322" height="121" key="GridCell.Tab.1.center" timestamp="1585114689541">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="184" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1585109854543" />
+    <state width="1322" height="121" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1585114689541" />
     <state width="1320" height="219" key="GridCell.Tab.1.center/0.25.1366.743@0.25.1366.743" timestamp="1584530382302" />
-    <state width="1322" height="184" key="GridCell.Tab.1.left" timestamp="1585109854543">
+    <state width="1322" height="121" key="GridCell.Tab.1.left" timestamp="1585114689541">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="184" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1585109854543" />
+    <state width="1322" height="121" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1585114689541" />
     <state width="1320" height="219" key="GridCell.Tab.1.left/0.25.1366.743@0.25.1366.743" timestamp="1584530382302" />
-    <state width="1322" height="184" key="GridCell.Tab.1.right" timestamp="1585109854543">
+    <state width="1322" height="121" key="GridCell.Tab.1.right" timestamp="1585114689541">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="184" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1585109854543" />
+    <state width="1322" height="121" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1585114689541" />
     <state width="1320" height="219" key="GridCell.Tab.1.right/0.25.1366.743@0.25.1366.743" timestamp="1584530382303" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1585107036207">
       <screen x="0" y="0" width="1366" height="728" />
