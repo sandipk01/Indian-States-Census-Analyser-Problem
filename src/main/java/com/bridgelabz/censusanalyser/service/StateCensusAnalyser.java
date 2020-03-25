@@ -1,6 +1,6 @@
 package com.bridgelabz.censusanalyser.service;
 
-import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
+import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.utils.Utils;
 
 import java.io.File;
@@ -22,27 +22,27 @@ public class StateCensusAnalyser {
     }
 
     //Checking whether file is csv or not.
-    public int checkCsv() throws IOException, StateCensusAnalyserException {
+    public int checkCsv() throws IOException, CSVBuilderException {
         if (Utils.getFileExtension(new File(fileName)).equals("csv"))
             return load();
         else
-            throw new StateCensusAnalyserException("no csv file",
-                    StateCensusAnalyserException.TypeOfException.NO_CSV_FILE);
+            throw new CSVBuilderException("no csv file",
+                    CSVBuilderException.TypeOfException.NO_CSV_FILE);
     }
 
     //Loading csv file data
-    public int load() throws IOException, StateCensusAnalyserException {
+    public int load() throws IOException, CSVBuilderException {
         int counter = 0;
         ICSVBuilder icsvBuilder=CSVBuilderFactory.getInstance();
         try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
             Iterator iterator = icsvBuilder.load(reader, className);
             counter = icsvBuilder.size(iterator);
         } catch (NoSuchFileException e) {
-            throw new StateCensusAnalyserException("No such file found",
-                    StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+            throw new CSVBuilderException("No such file found",
+                    CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
         } catch (RuntimeException e) {
-            throw new StateCensusAnalyserException("No such field found",
-                    StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
+            throw new CSVBuilderException("No such field found",
+                    CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
         }
         return counter;
     }

@@ -1,6 +1,6 @@
 package com.bridgelabz.censusanalyser.test;
 
-import com.bridgelabz.censusanalyser.exception.StateCensusAnalyserException;
+import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
@@ -14,7 +14,7 @@ import static com.bridgelabz.censusanalyser.utils.Constants.*;
 public class TestStateAnalyser {
 
     @Test
-    public void givenNumberOfRecord_WhenCompared_ThenShouldMatch() throws IOException, StateCensusAnalyserException {
+    public void givenNumberOfRecord_WhenCompared_ThenShouldMatch() throws IOException, CSVBuilderException {
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(CSV_FILE_PATH, CSVStateCensus.class);
         Assert.assertEquals(28, stateCensusAnalyser.load());
     }
@@ -24,8 +24,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(WRONG_CSV_FILE_NAME, CSVStateCensus.class);
         try {
             stateCensusAnalyser.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION, e.type);
         }
     }
 
@@ -34,8 +34,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(WRONG_CSV_FILE_TYPE, CSVStateCensus.class);
         try {
             stateCensusAnalyser.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_CSV_FILE, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_CSV_FILE, e.type);
         }
     }
 
@@ -44,8 +44,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(INCORRECT_CSV_FILE, CSVStateCensus.class);
         try {
             stateCensusAnalyser.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
     }
 
@@ -54,13 +54,13 @@ public class TestStateAnalyser {
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(INCORRECT_HEADER_FILE, CSVStateCensus.class);
         try {
             stateCensusAnalyser.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
     }
 
     @Test
-    public void givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch() throws IOException, StateCensusAnalyserException {
+    public void givenStateCodeCsvRecord_WhenCompared_ThenShouldMatch() throws IOException, CSVBuilderException {
         StateCensusAnalyser csvStates = new StateCensusAnalyser(STATE_CODE_CSV, CsvStateCode.class);
         Assert.assertEquals(37, csvStates.checkCsv());
     }
@@ -70,8 +70,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser csvStates = new StateCensusAnalyser(WRONG_STATE_CODE_FILE_NAME, CsvStateCode.class);
         try {
             csvStates.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_SUCH_FILE_EXCEPTION, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION, e.type);
         }
     }
 
@@ -80,8 +80,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser csvStates = new StateCensusAnalyser(WRONG_STATE_CODE_FILE_TYPE, CsvStateCode.class);
         try {
             csvStates.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.NO_CSV_FILE, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_CSV_FILE, e.type);
         }
     }
 
@@ -90,8 +90,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser csvStates = new StateCensusAnalyser(INCORRECT_STATE_CODE_CSV_FILE, CsvStateCode.class);
         try {
             csvStates.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
     }
 
@@ -100,8 +100,8 @@ public class TestStateAnalyser {
         StateCensusAnalyser csvStates = new StateCensusAnalyser(INCORRECT_STATE_CODE_HEADER_FILE, CsvStateCode.class);
         try {
             csvStates.checkCsv();
-        } catch (StateCensusAnalyserException e) {
-            Assert.assertEquals(StateCensusAnalyserException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER, e.type);
         }
     }
 }
