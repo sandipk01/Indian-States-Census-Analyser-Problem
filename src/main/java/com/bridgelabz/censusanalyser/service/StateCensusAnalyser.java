@@ -17,9 +17,11 @@ import java.util.Iterator;
 public class StateCensusAnalyser {
 
     private String fileName;
+    private Class className;
 
-    public StateCensusAnalyser(String fileName) {
+    public StateCensusAnalyser(String fileName, Class className) {
         this.fileName = fileName;
+        this.className = className;
     }
 
     public int checkCsv() throws IOException, StateCensusAnalyserException {
@@ -31,13 +33,9 @@ public class StateCensusAnalyser {
 
     public int load() throws IOException, StateCensusAnalyserException {
         int counter = 0;
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(fileName));
-            CsvToBean<CSVStateCensus> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(CSVStateCensus.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-            Iterator iterator = csvToBean.iterator();
+        try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
+            CsvBuilder csvBuilder = new CsvBuilder(reader, className);
+            Iterator iterator = csvBuilder.load();
             while (iterator.hasNext()) {
                 iterator.next();
                 counter++;
