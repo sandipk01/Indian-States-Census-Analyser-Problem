@@ -9,7 +9,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.Iterator;
 
 public class StateCensusAnalyser {
 
@@ -33,16 +32,13 @@ public class StateCensusAnalyser {
     //Loading csv file data
     public int load() throws IOException, CSVBuilderException {
         int counter = 0;
-        ICSVBuilder icsvBuilder=CSVBuilderFactory.getInstance();
         try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
-            Iterator iterator = icsvBuilder.load(reader, className);
-            counter = icsvBuilder.size(iterator);
+            ICSVBuilder csvBuilder=CSVBuilderFactory.getInstance();
+            counter=csvBuilder.loadList(reader,className).size();
         } catch (NoSuchFileException e) {
-            throw new CSVBuilderException("No such file found",
-                    CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+            throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
         } catch (RuntimeException e) {
-            throw new CSVBuilderException("No such field found",
-                    CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
+            throw new CSVBuilderException("No such field found", CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
         }
         return counter;
     }
