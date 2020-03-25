@@ -1,8 +1,8 @@
-SrNo,StateName,TIN,StateCode
+SrNo,StateName,TIN,StaCode
 1,Andaman and Nicobar Islands,35,AN
 2,Andhra Pradesh,28,AP
 3,Andhra Pradesh New;37,AD
-4,Arunachal Pradesh,12,AR
+4,Arunachal Pradesh.12,AR
 5,Assam,18,AS
 6,Bihar,10,BH
 7,Chandigarh,04,CH
@@ -15,7 +15,7 @@ SrNo,StateName,TIN,StateCode
 14,Haryana,06,HR
 15,Himachal Pradesh,02,HP
 16,Jammu and Kashmir,01,JK
-17,Jharkhand,20,JH
+17,Jharkhand.20,JH
 18,Karnataka,29,KA
 19,Kerala,32,KL
 20,Lakshadweep Islands,31,LD
