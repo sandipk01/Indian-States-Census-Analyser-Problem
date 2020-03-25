@@ -9,20 +9,17 @@ import java.util.Iterator;
 
 public class CsvBuilder {
 
-    private Reader reader;
-    private Class className;
-
-    public CsvBuilder(Reader reader, Class className) {
-        this.reader = reader;
-        this.className = className;
+    public <E> Iterator load(Reader reader, Class className) {
+        CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withType(className).build();
+        return csvToBean.iterator();
     }
 
-    public Iterator load() {
-        CsvToBean<CSVStateCensus> csvToBean = new CsvToBeanBuilder(reader)
-                .withType(className)
-                .withIgnoreLeadingWhiteSpace(true)
-                .build();
-        Iterator iterator = csvToBean.iterator();
-        return iterator;
+    public <E> int size(Iterator<E> iterator) {
+        int counter = 0;
+        while (iterator.hasNext()) {
+            iterator.next();
+            counter++;
+        }
+        return counter;
     }
 }
