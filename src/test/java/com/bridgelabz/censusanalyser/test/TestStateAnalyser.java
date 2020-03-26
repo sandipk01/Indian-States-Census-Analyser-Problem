@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.List;
 
@@ -115,7 +114,7 @@ public class TestStateAnalyser {
         List<CSVStateCensus> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv();
         Comparator<CSVStateCensus> stateCodeCSVComparator = Comparator.comparing(stateCode -> stateCode.getStateName());
         String sortedStateCensusesJsonData = csvStateCensusStateCensusAnalyser.getSortedJsonData(stateCodeCSVComparator, csvStateCensuses);
-        CSVStateCensus[] sortedData = new Gson().fromJson(sortedStateCensusesJsonData,CSVStateCensus[].class);
+        CSVStateCensus[] sortedData = new Gson().fromJson(sortedStateCensusesJsonData, CSVStateCensus[].class);
         Assert.assertEquals("Andhra Pradesh", sortedData[0].getStateName());
         Assert.assertEquals("West Bengal", sortedData[(sortedData.length) - 1].getStateName());
     }
