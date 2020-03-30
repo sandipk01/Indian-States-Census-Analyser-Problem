@@ -118,4 +118,14 @@ public class TestStateAnalyser {
         Assert.assertEquals("West Bengal", csvStateCodes[csvStateCodes.length-1].getStateName());
     }
 
+    @Test
+    public void givenTheStateCensusCSVFile_WhenSortedOnStateCode_ShouldReturnSortedList() throws IOException, CSVBuilderException {
+        StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>(STATE_CODE_CSV, CsvStateCode.class);
+        HashMap<Integer, CsvStateCode> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv();
+        Comparator<Map.Entry<Integer, CsvStateCode>> censusComparator = Comparator.comparing(csvStateCodeEntry -> csvStateCodeEntry.getValue().getStateCode());
+        String sortedByValue = csvStateCensusStateCensusAnalyser.getSortedJsonData(censusComparator, csvStateCensuses);
+        CsvStateCode[] csvStateCodes = new Gson().fromJson(sortedByValue, CsvStateCode[].class);
+        Assert.assertEquals("AD", csvStateCodes[0].getStateCode());
+        Assert.assertEquals("WB", csvStateCodes[csvStateCodes.length-1].getStateCode());
+    }
 }
