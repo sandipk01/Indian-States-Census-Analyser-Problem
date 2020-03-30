@@ -1,27 +1,31 @@
 package com.bridgelabz.censusanalyser.service;
 
-import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.Reader;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class CsvBuilder implements ICSVBuilder {
 
-    //Generic method to load the csv data
+    //Generic method to load the csv data using iterator
     public <E> Iterator<E> load(Reader reader, Class className) {
         CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withIgnoreLeadingWhiteSpace(true).withType(className).build();
         return csvToBean.iterator();
     }
 
     //Generic method to load csv data using list
-    public <E> List loadList(Reader reader, Class className) {
-        CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader).withIgnoreLeadingWhiteSpace(true).withType(className).build();
-        return csvToBean.parse();
+    public <S,T> HashMap<S,T> loadHashMap(Reader reader, Class className) {
+        CsvToBean csvToBean = new CsvToBeanBuilder(reader).withIgnoreLeadingWhiteSpace(true).withType(className).build();
+        List list=csvToBean.parse();
+        HashMap<Integer ,Object> map = new HashMap<>();
+        Integer count = 0;
+        for (Object record:list) {
+            map.put(count,record);
+            count++;
+        }
+        return (HashMap<S, T>) map;
     }
 
     //Method for get size of data
@@ -35,23 +39,15 @@ public class CsvBuilder implements ICSVBuilder {
     }
 
     //Method for sorting using comparator
-    public <E> List<E> sortingList(Comparator<E> comparator, List censusRecords) {
-        for (int iterate = 0; iterate < censusRecords.size() - 1; iterate++) {
-            for (int Inneriterate = 0; Inneriterate < censusRecords.size() - iterate - 1; Inneriterate++) {
-                E census1 = (E) censusRecords.get(Inneriterate);
-                E census2 = (E) censusRecords.get(Inneriterate + 1);
-                if (comparator.compare(census1, census2) > 0) {
-                    censusRecords.set(Inneriterate, census2);
-                    censusRecords.set(Inneriterate + 1, census1);
-                }
-            }
+    public <S,T> HashMap<S,T> sortingList(Comparator comparator, HashMap<S,T> censusHashMap) {
+        Set<Map.Entry<S, T>> entries = censusHashMap.entrySet();
+        List<Map.Entry<S, T>> listOfEntries = new ArrayList<>(entries);
+        Collections.sort(listOfEntries, comparator);
+        LinkedHashMap<S, T> sortedByValue = new LinkedHashMap<S,T>(listOfEntries.size());
+        // copying entries from List to Map
+        for (Map.Entry<S, T> entry : listOfEntries) {
+            sortedByValue.put(entry.getKey(), entry.getValue());
         }
-        return  censusRecords;
+        return sortedByValue;
     }
-
-    //Method to convert data in json format
-    public <E> String listConvertingToJson(List<E> list) {
-         return new Gson().toJson(list);
-    }
-
 }
