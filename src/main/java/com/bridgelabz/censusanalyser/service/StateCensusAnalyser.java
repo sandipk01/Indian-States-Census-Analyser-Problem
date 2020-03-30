@@ -1,7 +1,6 @@
 package com.bridgelabz.censusanalyser.service;
 
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
-import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.utils.Utils;
 import com.google.gson.Gson;
 
@@ -11,8 +10,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class StateCensusAnalyser<E> {
 
@@ -25,7 +23,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Checking whether file is csv or not.
-    public List<E> checkCsv() throws IOException, CSVBuilderException {
+    public <S,T> HashMap<S,T> checkCsv() throws IOException, CSVBuilderException {
         if (Utils.getFileExtension(new File(fileName)).equals("csv"))
             return load();
         else
@@ -34,22 +32,25 @@ public class StateCensusAnalyser<E> {
     }
 
     //Loading csv file data
-    public List<E> load() throws IOException, CSVBuilderException {
-        List<E> userList = null;
+    public <S,T> HashMap<S,T> load() throws IOException, CSVBuilderException {
+        HashMap<S,T> hashMap= null;
         try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-            userList = csvBuilder.loadList(reader, className);
+            hashMap = csvBuilder.loadHashMap(reader, className);
         } catch (NoSuchFileException e) {
             throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
         } catch (RuntimeException e) {
             throw new CSVBuilderException("No such field found", CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
         }
-        return userList;
+        return hashMap;
     }
 
     //Getting sorted Json data
-    public String getSortedJsonData(Comparator<E> comparator,List<E> list){
+    public <S,T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData){
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        return csvBuilder.listConvertingToJson(csvBuilder.sortingList(comparator,list));
+        HashMap<S, T> sortedByValue = csvBuilder.sortingList(comparator,userData);
+        Collection<T> records= sortedByValue.values();
+        String sortedJson=new Gson().toJson(records);
+        return sortedJson;
     }
 }
