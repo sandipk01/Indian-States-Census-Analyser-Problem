@@ -112,8 +112,7 @@ public class TestStateAnalyser {
     public void givenTheStateCensusCSVFile_WhenSortedOnState_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
         HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
-        Comparator<Map.Entry<String, IndianCensusDao>> censusComparator = Comparator.comparing(csvStateCensusEntry -> csvStateCensusEntry.getValue().state);
-        String sortedByValue = csvStateCensusStateCensusAnalyser.getSortedJsonData(censusComparator, csvStateCensuses);
+        String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedCensusJsonData(csvStateCensuses);
         IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
         Assert.assertEquals("Andhra Pradesh", csvStateCodes[0].state);
         Assert.assertEquals("West Bengal", csvStateCodes[csvStateCodes.length-1].state);
@@ -123,8 +122,7 @@ public class TestStateAnalyser {
     public void givenTheStateCensusCSVFile_WhenSortedOnStateCode_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
         HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(STATE_CODE_CSV,CsvStateCode.class);
-        Comparator<Map.Entry<String, IndianCensusDao>> censusComparator = Comparator.comparing(csvStateCodeEntry -> csvStateCodeEntry.getValue().stateCode);
-        String sortedByValue = csvStateCensusStateCensusAnalyser.getSortedJsonData(censusComparator, csvStateCensuses);
+        String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedJsonStateCode(csvStateCensuses);
         IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
         Assert.assertEquals("AD", csvStateCodes[0].stateCode);
         Assert.assertEquals("WB", csvStateCodes[csvStateCodes.length-1].stateCode);
