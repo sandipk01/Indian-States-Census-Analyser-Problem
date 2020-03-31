@@ -1,8 +1,13 @@
 package com.bridgelabz.censusanalyser.service;
 
+import com.bridgelabz.censusanalyser.dao.IndianCensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
+import com.bridgelabz.censusanalyser.model.CSVStateCensus;
+import com.bridgelabz.censusanalyser.model.CsvStateCode;
 import com.bridgelabz.censusanalyser.utils.Utils;
 import com.google.gson.Gson;
+import sun.awt.image.ImageWatched;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -14,43 +19,59 @@ import java.util.*;
 
 public class StateCensusAnalyser<E> {
 
-    private String fileName;
-    private final Class<E> className;
-
-    public StateCensusAnalyser(String fileName, Class<E> className) {
-        this.fileName = fileName;
-        this.className = className;
-    }
-
-    //Checking whether file is csv or not.
-    public <S,T> HashMap<S,T> checkCsv() throws IOException, CSVBuilderException {
-        if (Utils.getFileExtension(new File(fileName)).equals("csv"))
-            return load();
+    //Checking whether file is csv or not and class.
+    public HashMap checkCsv(String filePath, Class<E> className) throws IOException, CSVBuilderException {
+        if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == CSVStateCensus.class)
+            return loadingCensusCsvData(filePath);
+        else if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == CsvStateCode.class)
+            return loadingCsvStateCodeData(filePath);
         else
             throw new CSVBuilderException("no csv file",
                     CSVBuilderException.TypeOfException.NO_CSV_FILE);
     }
 
-    //Loading csv file data
-    public <S,T> HashMap<S,T> load() throws IOException, CSVBuilderException {
-        HashMap<S,T> hashMap= null;
-        try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
+    //Loading Census csv file data
+    public HashMap loadingCsvStateCodeData(String filePath) throws IOException, CSVBuilderException {
+        HashMap<String, IndianCensusDao> censusDaoHashMap = new HashMap<String, IndianCensusDao>();
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-            hashMap = csvBuilder.loadHashMap(reader, className);
+            Iterator<CsvStateCode> csvIterator = csvBuilder.loadFromIterator(reader, CsvStateCode.class);
+            while (csvIterator.hasNext()) {
+                IndianCensusDao indianCensusDAO = new IndianCensusDao(csvIterator.next());
+                censusDaoHashMap.put(indianCensusDAO.state, indianCensusDAO);
+            }
+            return censusDaoHashMap;
         } catch (NoSuchFileException e) {
             throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
         } catch (RuntimeException e) {
             throw new CSVBuilderException("No such field found", CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
         }
-        return hashMap;
+    }
+
+    //Loading state code csv file data
+    public HashMap<String, IndianCensusDao> loadingCensusCsvData(String filePath) throws IOException, CSVBuilderException {
+        HashMap<String, IndianCensusDao> censusDaoHashMap = new HashMap<String, IndianCensusDao>();
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
+            Iterator<CSVStateCensus> csvIterator = csvBuilder.loadFromIterator(reader, CSVStateCensus.class);
+            while (csvIterator.hasNext()) {
+                IndianCensusDao indianCensusDAO = new IndianCensusDao(csvIterator.next());
+                censusDaoHashMap.put(indianCensusDAO.state, indianCensusDAO);
+            }
+            return censusDaoHashMap;
+        } catch (NoSuchFileException e) {
+            throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+        } catch (RuntimeException e) {
+            throw new CSVBuilderException("No such field found", CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
+        }
     }
 
     //Getting sorted Json data
-    public <S,T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData){
+    public <S, T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData) {
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        HashMap<S, T> sortedByValue = csvBuilder.sortingList(comparator,userData);
-        Collection<T> records= sortedByValue.values();
-        String sortedJson=new Gson().toJson(records);
+        LinkedHashMap<S, T> sortedByValue = csvBuilder.sorting(comparator, userData);
+        Collection<T> records = sortedByValue.values();
+        String sortedJson = new Gson().toJson(records);
         return sortedJson;
     }
 }
