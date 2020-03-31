@@ -6,7 +6,6 @@ import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
 import com.bridgelabz.censusanalyser.utils.Utils;
 import com.google.gson.Gson;
-import sun.awt.image.ImageWatched;
 
 
 import java.io.File;
@@ -66,12 +65,31 @@ public class StateCensusAnalyser<E> {
         }
     }
 
-    //Getting sorted Json data
-    public <S, T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData) {
+    //Method for sorting state names
+    public String getStateWiseSortedCensusJsonData(HashMap<String, IndianCensusDao> hashMap) {
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        LinkedHashMap<S, T> sortedByValue = csvBuilder.sorting(comparator, userData);
-        Collection<T> records = sortedByValue.values();
-        String sortedJson = new Gson().toJson(records);
-        return sortedJson;
+        Comparator<Map.Entry<String, IndianCensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().state);
+        LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
+        Collection<IndianCensusDao> sortedList = sortedByValue.values();
+        String sortedStateCensusJson = new Gson().toJson(sortedList);
+        return sortedStateCensusJson;
     }
+
+    //Method for sorting state code
+    public String getStateWiseSortedJsonStateCode(HashMap<String, IndianCensusDao> hashMap) {
+        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
+        Comparator<Map.Entry<String, IndianCensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().stateCode);
+        LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
+        Collection<IndianCensusDao> sortedList = sortedByValue.values();
+        String sortedStateCensusJson = new Gson().toJson(sortedList);
+        return sortedStateCensusJson;
+    }
+//    //Getting sorted Json data
+//    public <S, T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData) {
+//        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
+//        LinkedHashMap<S, T> sortedByValue = csvBuilder.sorting(comparator, userData);
+//        Collection<T> records = sortedByValue.values();
+//        String sortedJson = new Gson().toJson(records);
+//        return sortedJson;
+//    }
 }
