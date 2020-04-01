@@ -19,7 +19,7 @@ public class TestStateAnalyser {
     @Test
     public void givenNumberOfRecord_WhenCompared_ThenShouldMatch() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CSVStateCensus> stateCensusAnalyser = new StateCensusAnalyser<>();
-        Assert.assertEquals(28, stateCensusAnalyser.loadingCensusCsvData(CSV_FILE_PATH).size());
+        Assert.assertEquals(28, stateCensusAnalyser.checkCsv(CSV_FILE_PATH,CSVStateCensus.class).size());
     }
 
     @Test
