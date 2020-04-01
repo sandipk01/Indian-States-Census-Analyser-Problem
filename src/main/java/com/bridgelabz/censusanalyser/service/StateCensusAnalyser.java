@@ -30,7 +30,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Loading Census csv file data
-    public HashMap loadingCsvStateCodeData(String filePath) throws IOException, CSVBuilderException {
+    private HashMap loadingCsvStateCodeData(String filePath) throws IOException, CSVBuilderException {
         HashMap<String, IndianCensusDao> censusDaoHashMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
@@ -48,7 +48,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Loading state code csv file data
-    public HashMap<String, IndianCensusDao> loadingCensusCsvData(String filePath) throws IOException, CSVBuilderException {
+    private HashMap<String, IndianCensusDao> loadingCensusCsvData(String filePath) throws IOException, CSVBuilderException {
         HashMap<String, IndianCensusDao> censusDaoHashMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
