@@ -12,18 +12,20 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.stream.StreamSupport;
 
 public class CensusDataLoader {
+
     //Loading Census csv file data
     public static HashMap loadingCsvStateCodeData(String filePath) throws IOException, CSVBuilderException {
         HashMap<String, IndianCensusDao> censusDaoHashMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
             Iterator<CsvStateCode> csvIterator = csvBuilder.loadFromIterator(reader, CsvStateCode.class);
-            while (csvIterator.hasNext()) {
-                IndianCensusDao indianCensusDAO = new IndianCensusDao(csvIterator.next());
-                censusDaoHashMap.put(indianCensusDAO.state, indianCensusDAO);
-            }
+            Iterable<CsvStateCode> csvStateCodeIterable = () -> csvIterator;
+            StreamSupport.stream(csvStateCodeIterable.spliterator(), false)
+                    .map(CsvStateCode.class::cast)
+                    .forEach(CsvStateCode -> censusDaoHashMap.put(CsvStateCode.getStateName(), new IndianCensusDao(CsvStateCode)));
             return censusDaoHashMap;
         } catch (NoSuchFileException e) {
             throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
@@ -38,10 +40,10 @@ public class CensusDataLoader {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
             Iterator<CSVStateCensus> csvIterator = csvBuilder.loadFromIterator(reader, CSVStateCensus.class);
-            while (csvIterator.hasNext()) {
-                IndianCensusDao indianCensusDAO = new IndianCensusDao(csvIterator.next());
-                censusDaoHashMap.put(indianCensusDAO.state, indianCensusDAO);
-            }
+            Iterable<CSVStateCensus> csvStateCensusIterable = () -> csvIterator;
+            StreamSupport.stream(csvStateCensusIterable.spliterator(), false)
+                    .map(CSVStateCensus.class::cast)
+                    .forEach(CSVStateCensus -> censusDaoHashMap.put(CSVStateCensus.getStateName(), new IndianCensusDao(CSVStateCensus)));
             return censusDaoHashMap;
         } catch (NoSuchFileException e) {
             throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
