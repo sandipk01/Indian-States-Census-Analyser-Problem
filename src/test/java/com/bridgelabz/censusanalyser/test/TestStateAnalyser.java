@@ -122,7 +122,7 @@ public class TestStateAnalyser {
     public void givenTheStateCodeCSVFile_WhenSorted_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
         HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(STATE_CODE_CSV,CsvStateCode.class);
-        String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedJsonStateCode(csvStateCensuses);
+        String sortedByValue = csvStateCensusStateCensusAnalyser.getStateCodeWiseSortedJsonData(csvStateCensuses);
         IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
         Assert.assertEquals("AD", csvStateCodes[0].stateCode);
         Assert.assertEquals("WB", csvStateCodes[csvStateCodes.length-1].stateCode);
@@ -146,7 +146,7 @@ public class TestStateAnalyser {
         HashMap<String, IndianCensusDao> csvStateCode = null;
         try {
             csvStateCode = csvStateCensusStateCensusAnalyser.checkCsv(EMPTY_STATE_CODE_FILE, CsvStateCode.class);
-            csvStateCensusStateCensusAnalyser.getStateWiseSortedJsonStateCode(csvStateCode);
+            csvStateCensusStateCensusAnalyser.getStateCodeWiseSortedJsonData(csvStateCode);
         } catch (CSVBuilderException e) {
             Assert.assertEquals(CSVBuilderException.TypeOfException.NO_CENSUS_CODE_DATA, e.type);
         }
