@@ -66,7 +66,9 @@ public class StateCensusAnalyser<E> {
     }
 
     //Method for sorting state names
-    public String getStateWiseSortedCensusJsonData(HashMap<String, IndianCensusDao> hashMap) {
+    public String getStateWiseSortedCensusJsonData(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
+        if (hashMap == null || hashMap.size() == 0)
+            throw new CSVBuilderException("No Census Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
         Comparator<Map.Entry<String, IndianCensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().state);
         LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
@@ -76,7 +78,9 @@ public class StateCensusAnalyser<E> {
     }
 
     //Method for sorting state code
-    public String getStateWiseSortedJsonStateCode(HashMap<String, IndianCensusDao> hashMap) {
+    public String getStateWiseSortedJsonStateCode(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
+        if (hashMap == null || hashMap.size() == 0)
+            throw new CSVBuilderException("No Census Code Data", CSVBuilderException.TypeOfException.NO_CENSUS_CODE_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
         Comparator<Map.Entry<String, IndianCensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().stateCode);
         LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
@@ -84,12 +88,6 @@ public class StateCensusAnalyser<E> {
         String sortedStateCensusJson = new Gson().toJson(sortedList);
         return sortedStateCensusJson;
     }
-//    //Getting sorted Json data
-//    public <S, T> String getSortedJsonData(Comparator<Map.Entry<S, T>> comparator, HashMap<S, T> userData) {
-//        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-//        LinkedHashMap<S, T> sortedByValue = csvBuilder.sorting(comparator, userData);
-//        Collection<T> records = sortedByValue.values();
-//        String sortedJson = new Gson().toJson(records);
-//        return sortedJson;
-//    }
+
+
 }
