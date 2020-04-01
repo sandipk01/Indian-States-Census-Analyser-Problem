@@ -193,5 +193,19 @@ public class TestStateAnalyser {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIndianStateCensusData_WhenSortedOnDensityPerSquareKM_ShouldReturnLastSortedData() {
+        StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
+        try {
+            StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
+            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedSPopulationDensity(csvStateCensuses);
+            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            Assert.assertEquals("Mizoram", csvStateCodes[csvStateCodes.length-1].state);
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
