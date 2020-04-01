@@ -119,13 +119,37 @@ public class TestStateAnalyser {
     }
 
     @Test
-    public void givenTheStateCensusCSVFile_WhenSortedOnStateCode_ShouldReturnSortedList() throws IOException, CSVBuilderException {
+    public void givenTheStateCodeCSVFile_WhenSorted_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
         HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(STATE_CODE_CSV,CsvStateCode.class);
         String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedJsonStateCode(csvStateCensuses);
         IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
         Assert.assertEquals("AD", csvStateCodes[0].stateCode);
         Assert.assertEquals("WB", csvStateCodes[csvStateCodes.length-1].stateCode);
+    }
+
+    @Test
+    public void givenTheStateCensusCSVFile_WhenEmpty_ShouldReturnNoCensusData() throws IOException {
+        StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
+        HashMap<String, IndianCensusDao> csvStateCensuses = null;
+        try {
+            csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(EMPTY_STATE_CENSUS_FILE, CSVStateCensus.class);
+            csvStateCensusStateCensusAnalyser.getStateWiseSortedCensusJsonData(csvStateCensuses);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_CENSUS_DATA, e.type);
+        }
+    }
+
+    @Test
+    public void givenTheStateCodeCSVFile_WhenEmpty_ShouldReturnNoCensusData() throws IOException {
+        StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
+        HashMap<String, IndianCensusDao> csvStateCode = null;
+        try {
+            csvStateCode = csvStateCensusStateCensusAnalyser.checkCsv(EMPTY_STATE_CODE_FILE, CsvStateCode.class);
+            csvStateCensusStateCensusAnalyser.getStateWiseSortedJsonStateCode(csvStateCode);
+        } catch (CSVBuilderException e) {
+            Assert.assertEquals(CSVBuilderException.TypeOfException.NO_CENSUS_CODE_DATA, e.type);
+        }
     }
 }
 
