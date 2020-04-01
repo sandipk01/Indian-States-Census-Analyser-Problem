@@ -89,16 +89,29 @@ public class StateCensusAnalyser<E> {
         return sortedStateCensusJson;
     }
 
+    //Method for sorting data on the basis of population
     public String getStateWiseSortedSPopulation(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
-        if ( hashMap== null || hashMap.size() == 0)
+        if (hashMap == null || hashMap.size() == 0)
             throw new CSVBuilderException("No Population State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, IndianCensusDao>> cencusComparator = Comparator.comparing( censusDaoEntry-> censusDaoEntry.getValue().population);
-        LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(cencusComparator,hashMap);
+        Comparator<Map.Entry<String, IndianCensusDao>> cencusComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().population);
+        LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(cencusComparator, hashMap);
         ArrayList<IndianCensusDao> list = new ArrayList<>(sortedByValue.values());
         Collections.reverse(list);
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
 
+    //Method for sorting data on basis of population density
+    public String getStateWiseSortedSPopulationDensity(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
+        if (hashMap == null || hashMap.size() == 0)
+            throw new CSVBuilderException("No DensityPerSquareKM State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
+        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
+        Comparator<Map.Entry<String, IndianCensusDao>> censusComparator = Comparator.comparing(censusDAOEntry -> censusDAOEntry.getValue().densityPerSqKm);
+        LinkedHashMap<String, IndianCensusDao> sortedByValue = csvBuilder.sorting(censusComparator,hashMap);
+        ArrayList<IndianCensusDao> list = new ArrayList<>(sortedByValue.values());
+        Collections.reverse(list);
+        String sortedStateCensusJson = new Gson().toJson(list);
+        return sortedStateCensusJson;
+    }
 }
