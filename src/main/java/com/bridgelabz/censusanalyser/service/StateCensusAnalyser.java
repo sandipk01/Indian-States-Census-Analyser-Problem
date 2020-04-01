@@ -78,7 +78,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Method for sorting state code
-    public String getStateWiseSortedJsonStateCode(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
+    public String getStateCodeWiseSortedJsonData(HashMap<String, IndianCensusDao> hashMap) throws CSVBuilderException {
         if (hashMap == null || hashMap.size() == 0)
             throw new CSVBuilderException("No Census Code Data", CSVBuilderException.TypeOfException.NO_CENSUS_CODE_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
