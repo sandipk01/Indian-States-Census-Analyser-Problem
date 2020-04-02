@@ -3,7 +3,7 @@ package com.bridgelabz.censusanalyser.dao;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
 
-public class IndianCensusDao {
+public class CensusDao {
     public String state;
     public int areaInSqKm;
     public int densityPerSqKm;
@@ -12,14 +12,14 @@ public class IndianCensusDao {
     public int srNo;
     public int tin;
 
-    public IndianCensusDao(CSVStateCensus csvStateCensus) {
+    public CensusDao(CSVStateCensus csvStateCensus) {
         state = csvStateCensus.getStateName();
         areaInSqKm = csvStateCensus.getAreaPerKm();
         densityPerSqKm = csvStateCensus.getDensityPerSqKm();
         population = csvStateCensus.getPopulation();
     }
 
-    public IndianCensusDao(CsvStateCode csvStateCode) {
+    public CensusDao(CsvStateCode csvStateCode) {
         stateCode = csvStateCode.getStateCode();
         srNo = csvStateCode.getSrNo();
         state = csvStateCode.getStateName();

@@ -1,6 +1,6 @@
 package com.bridgelabz.censusanalyser.test;
 
-import com.bridgelabz.censusanalyser.dao.IndianCensusDao;
+import com.bridgelabz.censusanalyser.dao.CensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
@@ -111,9 +111,9 @@ public class TestStateAnalyser {
     @Test
     public void givenTheStateCensusCSVFile_WhenSortedOnState_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
-        HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+        HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
         String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedCensusJsonData(csvStateCensuses);
-        IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+        CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
         Assert.assertEquals("Andhra Pradesh", csvStateCodes[0].state);
         Assert.assertEquals("West Bengal", csvStateCodes[csvStateCodes.length-1].state);
     }
@@ -121,9 +121,9 @@ public class TestStateAnalyser {
     @Test
     public void givenTheStateCodeCSVFile_WhenSorted_ShouldReturnSortedList() throws IOException, CSVBuilderException {
         StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
-        HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(STATE_CODE_CSV,CsvStateCode.class);
+        HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(STATE_CODE_CSV,CsvStateCode.class);
         String sortedByValue = csvStateCensusStateCensusAnalyser.getStateCodeWiseSortedJsonData(csvStateCensuses);
-        IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+        CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
         Assert.assertEquals("AD", csvStateCodes[0].stateCode);
         Assert.assertEquals("WB", csvStateCodes[csvStateCodes.length-1].stateCode);
     }
@@ -131,7 +131,7 @@ public class TestStateAnalyser {
     @Test
     public void givenTheStateCensusCSVFile_WhenEmpty_ShouldReturnNoCensusData() throws IOException {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
-        HashMap<String, IndianCensusDao> csvStateCensuses = null;
+        HashMap<String, CensusDao> csvStateCensuses = null;
         try {
             csvStateCensuses = csvStateCensusStateCensusAnalyser.checkCsv(EMPTY_STATE_CENSUS_FILE, CSVStateCensus.class);
             csvStateCensusStateCensusAnalyser.getStateWiseSortedCensusJsonData(csvStateCensuses);
@@ -143,7 +143,7 @@ public class TestStateAnalyser {
     @Test
     public void givenTheStateCodeCSVFile_WhenEmpty_ShouldReturnNoCensusData() throws IOException {
         StateCensusAnalyser<CsvStateCode> csvStateCensusStateCensusAnalyser = new StateCensusAnalyser<>();
-        HashMap<String, IndianCensusDao> csvStateCode = null;
+        HashMap<String, CensusDao> csvStateCode = null;
         try {
             csvStateCode = csvStateCensusStateCensusAnalyser.checkCsv(EMPTY_STATE_CODE_FILE, CsvStateCode.class);
             csvStateCensusStateCensusAnalyser.getStateCodeWiseSortedJsonData(csvStateCode);
@@ -157,9 +157,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedSPopulation(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Uttar Pradesh", csvStateCodes[0].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
@@ -171,9 +171,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedSPopulation(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Sikkim", csvStateCodes[csvStateCensuses.size()-1].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
@@ -185,9 +185,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedSPopulationDensity(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Bihar", csvStateCodes[0].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
@@ -199,9 +199,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedSPopulationDensity(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Mizoram", csvStateCodes[csvStateCodes.length-1].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
@@ -213,9 +213,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedStateArea(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Rajasthan", csvStateCodes[0].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
@@ -227,9 +227,9 @@ public class TestStateAnalyser {
         StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
         try {
             StateCensusAnalyser<CSVStateCensus> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
-            HashMap<String, IndianCensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
+            HashMap<String, CensusDao> csvStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(CSV_FILE_PATH,CSVStateCensus.class);
             String sortedByValue = csvStateCensusStateCensusAnalyser.getStateWiseSortedStateArea(csvStateCensuses);
-            IndianCensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, IndianCensusDao[].class);
+            CensusDao[] csvStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
             Assert.assertEquals("Goa", csvStateCodes[csvStateCodes.length-1].state);
         } catch (CSVBuilderException | IOException e) {
             e.printStackTrace();
