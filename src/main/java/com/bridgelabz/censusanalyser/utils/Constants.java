@@ -13,4 +13,5 @@ public class Constants {
     public static final String INCORRECT_STATE_CODE_CSV_FILE = "src/test/resources/statecode/IncorrectDelimiterStateCode.csv";
     public static final String INCORRECT_STATE_CODE_HEADER_FILE = "src/test/resources/statecode/IncorrectHeaderStateCode.csv";
     public static final String EMPTY_STATE_CODE_FILE="src/test/resources/statecode/EmptyStateCodeData.csv";
+    public static final String US_CENSUS_FILE="src/test/resources/usdata/USCensusData.csv";
 }
