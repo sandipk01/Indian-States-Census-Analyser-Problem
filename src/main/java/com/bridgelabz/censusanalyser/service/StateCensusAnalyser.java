@@ -4,6 +4,7 @@ import com.bridgelabz.censusanalyser.dao.CensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
+import com.bridgelabz.censusanalyser.model.UsCensusData;
 import com.bridgelabz.censusanalyser.utils.Utils;
 import com.google.gson.Gson;
 
@@ -20,6 +21,8 @@ public class StateCensusAnalyser<E> {
             return CensusDataLoader.loadingCensusCsvData(filePath);
         else if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == CsvStateCode.class)
             return CensusDataLoader.loadingCsvStateCodeData(filePath);
+        else if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == UsCensusData.class)
+            return CensusDataLoader.loadingUsCensusCsvData(filePath);
         else
             throw new CSVBuilderException("no csv file",
                     CSVBuilderException.TypeOfException.NO_CSV_FILE);
