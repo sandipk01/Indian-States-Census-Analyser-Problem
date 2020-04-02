@@ -4,15 +4,15 @@ import com.opencsv.bean.CsvBindByName;
 
 public class CsvStateCode {
     @CsvBindByName(column = "SrNo", required = true)
-    private int srNo;
+    private Integer srNo;
     @CsvBindByName(column = "StateName", required = true)
     private String stateName;
     @CsvBindByName(column = "TIN", required = true)
-    private int tin;
+    private Integer tin;
     @CsvBindByName(column = "StateCode", required = true)
     private String stateCode;
 
-    public int getSrNo() {
+    public Integer getSrNo() {
         return srNo;
     }
 
@@ -20,7 +20,7 @@ public class CsvStateCode {
         return stateName;
     }
 
-    public int getTin() {
+    public Integer getTin() {
         return tin;
     }
 
