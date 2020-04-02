@@ -4,6 +4,7 @@ import com.bridgelabz.censusanalyser.dao.CensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
+import com.bridgelabz.censusanalyser.model.UsCensusData;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -44,6 +45,24 @@ public class CensusDataLoader {
             StreamSupport.stream(csvStateCensusIterable.spliterator(), false)
                     .map(CSVStateCensus.class::cast)
                     .forEach(CSVStateCensus -> censusDaoHashMap.put(CSVStateCensus.getStateName(), new CensusDao(CSVStateCensus)));
+            return censusDaoHashMap;
+        } catch (NoSuchFileException e) {
+            throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
+        } catch (RuntimeException e) {
+            throw new CSVBuilderException("No such field found", CSVBuilderException.TypeOfException.INCORRECT_DELIMITER_OR_HEADER);
+        }
+    }
+
+    //Loading state code csv file data
+    public static HashMap<String, CensusDao> loadingUsCensusCsvData(String filePath) throws IOException, CSVBuilderException {
+        HashMap<String, CensusDao> censusDaoHashMap = new HashMap<>();
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
+            Iterator<UsCensusData> csvIterator = csvBuilder.loadFromIterator(reader, UsCensusData.class);
+            Iterable<UsCensusData> csvUsCensusIterable = () -> csvIterator;
+            StreamSupport.stream(csvUsCensusIterable.spliterator(), false)
+                    .map(UsCensusData.class::cast)
+                    .forEach(UsCensusData -> censusDaoHashMap.put(UsCensusData.getState(), new CensusDao(UsCensusData)));
             return censusDaoHashMap;
         } catch (NoSuchFileException e) {
             throw new CSVBuilderException("No such file found", CSVBuilderException.TypeOfException.NO_SUCH_FILE_EXCEPTION);
