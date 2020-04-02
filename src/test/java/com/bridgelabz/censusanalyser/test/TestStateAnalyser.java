@@ -4,6 +4,7 @@ import com.bridgelabz.censusanalyser.dao.CensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
 import com.bridgelabz.censusanalyser.model.CsvStateCode;
+import com.bridgelabz.censusanalyser.model.UsCensusData;
 import com.bridgelabz.censusanalyser.service.StateCensusAnalyser;
 import com.google.gson.Gson;
 import org.junit.Assert;
@@ -235,5 +236,12 @@ public class TestStateAnalyser {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenUsCensusNumberOfRecord_WhenCompared_ThenShouldMatch() throws IOException, CSVBuilderException {
+        StateCensusAnalyser<UsCensusData> stateCensusAnalyser = new StateCensusAnalyser<>();
+        Assert.assertEquals(51, stateCensusAnalyser.checkCsv(US_CENSUS_FILE,UsCensusData.class).size());
+    }
+
 }
 
