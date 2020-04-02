@@ -53,7 +53,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Method for sorting data on the basis of population
-    public String getStateWiseSortedSPopulation(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
+    public String getStateWiseSortedPopulation(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
         if (hashMap == null || hashMap.size() == 0)
             throw new CSVBuilderException("No Population State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
@@ -66,7 +66,7 @@ public class StateCensusAnalyser<E> {
     }
 
     //Method for sorting data on basis of population density
-    public String getStateWiseSortedSPopulationDensity(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
+    public String getStateWiseSortedPopulationDensity(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
         if (hashMap == null || hashMap.size() == 0)
             throw new CSVBuilderException("No DensityPerSquareKM State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
         ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
