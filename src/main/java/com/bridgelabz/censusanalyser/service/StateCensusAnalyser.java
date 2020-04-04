@@ -1,5 +1,7 @@
 package com.bridgelabz.censusanalyser.service;
 
+import com.bridgelabz.censusanalyser.adapter.CensusAdapter;
+import com.bridgelabz.censusanalyser.adapter.CensusAdapterFactory;
 import com.bridgelabz.censusanalyser.dao.CensusDao;
 import com.bridgelabz.censusanalyser.exception.CSVBuilderException;
 import com.bridgelabz.censusanalyser.model.CSVStateCensus;
@@ -12,20 +14,33 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 public class StateCensusAnalyser<E> {
 
+    public enum COUNTRY {INDIA, US}
+
     //Checking whether file is csv or not and class.
-    public HashMap checkCsv(String filePath, Class<E> className) throws IOException, CSVBuilderException {
-        if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == CSVStateCensus.class)
-            return CensusDataLoader.loadingCensusCsvData(filePath);
-        else if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == CsvStateCode.class)
-            return CensusDataLoader.loadingCsvStateCodeData(filePath);
-        else if (Utils.getFileExtension(new File(filePath)).equals("csv") && className == UsCensusData.class)
-            return CensusDataLoader.loadingUsCensusCsvData(filePath);
-        else
+    public HashMap<String, CensusDao> checkCsv(COUNTRY country, String... csvFilePath) throws IOException, CSVBuilderException {
+
+        if (Utils.getFileExtension(new File(csvFilePath[csvFilePath.length - 1])).equals("csv")) {
+
+            switch (csvFilePath.length) {
+                case 1:
+                    return loadingCensusCsvData(country, csvFilePath);
+                default:
+                   return loadingCensusCsvData(country, csvFilePath);
+            }
+        } else {
+
             throw new CSVBuilderException("no csv file",
                     CSVBuilderException.TypeOfException.NO_CSV_FILE);
+        }
+    }
+
+    private HashMap<String, CensusDao> loadingCensusCsvData(COUNTRY country, String... csvFilePath) throws IOException, CSVBuilderException {
+        CensusAdapter censusDataLoader = CensusAdapterFactory.getCensusData(country);
+        return censusDataLoader.loadingCensusData(csvFilePath);
     }
 
     //Method for sorting state names
@@ -90,4 +105,5 @@ public class StateCensusAnalyser<E> {
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
+
 }
