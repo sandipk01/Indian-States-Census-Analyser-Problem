@@ -257,5 +257,19 @@ public class TestStateAnalyser {
         }
     }
 
+    @Test
+    public void givenUsStateCensusData_WhenSortedPopulationWise_ShouldReturnLeastPopulatedStateName() {
+        StateCensusAnalyser<UsCensusData> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
+        try {
+            StateCensusAnalyser<UsCensusData> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
+            HashMap<String, CensusDao> csvUsStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(StateCensusAnalyser.COUNTRY.US,US_CENSUS_FILE);
+            String sortedByValue = csvStateCensusStateCensusAnalyser.getUsDataPopulationStateWiseData(csvUsStateCensuses);
+            CensusDao[] usStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
+            Assert.assertEquals("Wyoming", usStateCodes[usStateCodes.length-1].state);
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
