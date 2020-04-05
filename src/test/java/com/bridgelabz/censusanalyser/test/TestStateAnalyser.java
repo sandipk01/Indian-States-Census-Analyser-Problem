@@ -243,5 +243,19 @@ public class TestStateAnalyser {
         Assert.assertEquals(51, stateCensusAnalyser.checkCsv(StateCensusAnalyser.COUNTRY.US,US_CENSUS_FILE).size());
     }
 
+    @Test
+    public void givenUsStateCensusData_whenSortedPopulationWise_ShouldReturnMostPopulatedStateName() {
+        StateCensusAnalyser<UsCensusData> csvStateCensusStateCensusAnalyser=new StateCensusAnalyser<>();
+        try {
+            StateCensusAnalyser<UsCensusData> csvStateCensusStateCensusAnalyser1 = new StateCensusAnalyser<>();
+            HashMap<String, CensusDao> csvUsStateCensuses = csvStateCensusStateCensusAnalyser1.checkCsv(StateCensusAnalyser.COUNTRY.US,US_CENSUS_FILE);
+            String sortedByValue = csvStateCensusStateCensusAnalyser.getUsDataPopulationStateWiseData(csvUsStateCensuses);
+            CensusDao[] usStateCodes = new Gson().fromJson(sortedByValue, CensusDao[].class);
+            Assert.assertEquals("California", usStateCodes[0].state);
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
