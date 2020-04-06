@@ -12,6 +12,10 @@ public class CsvStateCode {
     @CsvBindByName(column = "StateCode", required = true)
     private String stateCode;
 
+    public CsvStateCode() {
+
+    }
+
     public Integer getSrNo() {
         return srNo;
     }
