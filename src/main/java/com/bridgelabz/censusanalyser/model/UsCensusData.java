@@ -34,10 +34,6 @@ public class UsCensusData {
         return stateId;
     }
 
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
-    }
-
     public String getState() {
         return state;
     }
@@ -50,55 +46,24 @@ public class UsCensusData {
         return population;
     }
 
-    public void setPopulation(Integer population) {
-        this.population = population;
-    }
-
-    public Integer getHousingUnits() {
-        return housingUnits;
-    }
-
-    public void setHousingUnits(Integer housingUnits) {
-        this.housingUnits = housingUnits;
-    }
-
     public Double getArea() {
         return area;
-    }
-
-    public void setArea(Double area) {
-        this.area = area;
-    }
-
-    public Double getWaterArea() {
-        return waterArea;
-    }
-
-    public void setWaterArea(Double waterArea) {
-        this.waterArea = waterArea;
-    }
-
-    public Double getLandArea() {
-        return landArea;
-    }
-
-    public void setLandArea(Double landArea) {
-        this.landArea = landArea;
     }
 
     public Double getPopulationDensity() {
         return populationDensity;
     }
 
-    public void setPopulationDensity(Double populationDensity) {
+    public UsCensusData() {
+
+    }
+
+    //Parameterized constructor for initializing instance variables
+    public UsCensusData(String stateCode, String state, Integer population, Double area, Double populationDensity) {
+        this.stateId = stateCode;
+        this.state = state;
+        this.population = population;
+        this.area = area;
         this.populationDensity = populationDensity;
-    }
-
-    public Double getHousingDensity() {
-        return housingDensity;
-    }
-
-    public void setHousingDensity(Double housingDensity) {
-        this.housingDensity = housingDensity;
     }
 }
