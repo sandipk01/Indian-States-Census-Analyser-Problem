@@ -15,108 +15,45 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 
-public class StateCensusAnalyser<E> {
+public class StateCensusAnalyser {
 
     public enum COUNTRY {INDIA, US}
+    private COUNTRY country;
+
+    public StateCensusAnalyser(COUNTRY country) {
+        this.country = country;
+    }
+
+    public enum SortingMode {AREA,STATE,STATE_CODE,DENSITY,POPULATION}
 
     //Checking whether file is csv or not and class.
-    public HashMap<String, CensusDao> checkCsv(COUNTRY country, String... csvFilePath) throws IOException, CSVBuilderException {
+    public HashMap<String, CensusDao> checkCsv(String... csvFilePath) throws IOException, CSVBuilderException {
 
         if (Utils.getFileExtension(new File(csvFilePath[csvFilePath.length - 1])).equals("csv")) {
-
-            switch (csvFilePath.length) {
-                case 1:
-                    return loadingCensusCsvData(country, csvFilePath);
-                default:
-                   return loadingCensusCsvData(country, csvFilePath);
-            }
+            return loadingCensusCsvData(csvFilePath);
         } else {
-
             throw new CSVBuilderException("no csv file",
                     CSVBuilderException.TypeOfException.NO_CSV_FILE);
         }
     }
 
-    private HashMap<String, CensusDao> loadingCensusCsvData(COUNTRY country, String... csvFilePath) throws IOException, CSVBuilderException {
-        CensusAdapter censusDataLoader = CensusAdapterFactory.getCensusData(country);
+    //Method for loading csv file data
+    private HashMap<String, CensusDao> loadingCensusCsvData(String... csvFilePath) throws IOException, CSVBuilderException {
+        CensusAdapter censusDataLoader = CensusAdapterFactory.getCensusData(this.country);
         return censusDataLoader.loadingCensusData(csvFilePath);
     }
 
-    //Method for sorting state names
-    public String getStateWiseSortedCensusJsonData(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
+    //method for sorting csv file data
+    public String getSortedCensusData(HashMap<String,CensusDao> censusDAOMap,SortingMode mode) throws CSVBuilderException {
+        if (censusDAOMap == null || censusDAOMap.size() == 0)
             throw new CSVBuilderException("No Census Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().state);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
-        Collection<CensusDao> sortedList = sortedByValue.values();
-        String sortedStateCensusJson = new Gson().toJson(sortedList);
-        return sortedStateCensusJson;
-    }
-
-    //Method for sorting state code
-    public String getStateCodeWiseSortedJsonData(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
-            throw new CSVBuilderException("No Census Code Data", CSVBuilderException.TypeOfException.NO_CENSUS_CODE_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> stateCodeComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().stateCode);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(stateCodeComparator, hashMap);
-        Collection<CensusDao> sortedList = sortedByValue.values();
-        String sortedStateCensusJson = new Gson().toJson(sortedList);
-        return sortedStateCensusJson;
-    }
-
-    //Method for sorting data on the basis of population
-    public String getStateWiseSortedPopulation(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
-            throw new CSVBuilderException("No Population State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> cencusComparator = Comparator.comparing(censusDaoEntry -> censusDaoEntry.getValue().population);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(cencusComparator, hashMap);
-        ArrayList<CensusDao> list = new ArrayList<>(sortedByValue.values());
-        Collections.reverse(list);
-        String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
-    }
-
-    //Method for sorting data on basis of population density
-    public String getStateWiseSortedPopulationDensity(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
-            throw new CSVBuilderException("No DensityPerSquareKM State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> censusComparator = Comparator.comparing(censusDAOEntry -> censusDAOEntry.getValue().densityPerSqKm);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(censusComparator, hashMap);
-        ArrayList<CensusDao> list = new ArrayList<>(sortedByValue.values());
-        Collections.reverse(list);
-        String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
-    }
-
-    //Method for sorting data on basis of population density
-    public String getStateWiseSortedStateArea(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
-            throw new CSVBuilderException("No DensityPerSquareKM State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> censusComparator = Comparator.comparing(censusDAOEntry -> censusDAOEntry.getValue().areaInSqKm);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(censusComparator, hashMap);
-        ArrayList<CensusDao> list = new ArrayList<>(sortedByValue.values());
-        Collections.reverse(list);
-        String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
-    }
-
-    //Method for sorting us data on basis of population density
-    public String getUsDataPopulationStateWiseData(HashMap<String, CensusDao> hashMap) throws CSVBuilderException {
-        if (hashMap == null || hashMap.size() == 0)
-            throw new CSVBuilderException("No DensityPerSquareKM State Data", CSVBuilderException.TypeOfException.NO_CENSUS_DATA);
-        ICSVBuilder csvBuilder = CSVBuilderFactory.getInstance();
-        Comparator<Map.Entry<String, CensusDao>> censusComparator = Comparator.comparing(censusDAOEntry -> censusDAOEntry.getValue().population);
-        LinkedHashMap<String, CensusDao> sortedByValue = csvBuilder.sorting(censusComparator, hashMap);
-        ArrayList<CensusDao> list = new ArrayList<>(sortedByValue.values());
-        Collections.reverse(list);
-        String sortedStateCensusJson = new Gson().toJson(list);
-        return sortedStateCensusJson;
+        ArrayList censusDTO = censusDAOMap.values().stream()
+                .sorted(CensusDao.getSortComparator(mode))
+                .map(censusDAO -> censusDAO.getCensusDTO(country))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new Gson().toJson(censusDTO);
     }
 
 }
