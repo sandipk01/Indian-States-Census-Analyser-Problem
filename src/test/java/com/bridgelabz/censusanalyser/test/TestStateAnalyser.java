@@ -243,5 +243,29 @@ public class TestStateAnalyser {
         }
     }
 
+    @Test
+    public void givenUsStateCensusData_WhenSortedPopulationDensityWise_ShouldReturnMostStateName() {
+        try {
+            HashMap<String, CensusDao> csvUsStateCensuses = usCensusAnalyser.checkCsv(US_CENSUS_FILE);
+            String sortedByValue = usCensusAnalyser.getSortedCensusData(csvUsStateCensuses,StateCensusAnalyser.SortingMode.DENSITY);
+            UsCensusData[] usStateCodes = new Gson().fromJson(sortedByValue, UsCensusData[].class);
+            Assert.assertEquals("District of Columbia", usStateCodes[0].getState());
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUsStateCensusData_WhenSortedPopulationDensityWise_ShouldReturnLeastStateName() {
+        try {
+            HashMap<String, CensusDao> csvUsStateCensuses = usCensusAnalyser.checkCsv(US_CENSUS_FILE);
+            String sortedByValue = usCensusAnalyser.getSortedCensusData(csvUsStateCensuses,StateCensusAnalyser.SortingMode.DENSITY);
+            UsCensusData[] usStateData = new Gson().fromJson(sortedByValue, UsCensusData[].class);
+            Assert.assertEquals("Alaska", usStateData[usStateData.length-1].getState());
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
