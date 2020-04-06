@@ -267,5 +267,29 @@ public class TestStateAnalyser {
         }
     }
 
+    @Test
+    public void givenUsStateCensusData_WhenSortedAreaWise_ShouldReturnMostAreaStateName() {
+        try {
+            HashMap<String, CensusDao> csvUsStateCensuses = usCensusAnalyser.checkCsv(US_CENSUS_FILE);
+            String sortedByValue = usCensusAnalyser.getSortedCensusData(csvUsStateCensuses,StateCensusAnalyser.SortingMode.AREA);
+            UsCensusData[] usStateCodes = new Gson().fromJson(sortedByValue, UsCensusData[].class);
+            Assert.assertEquals("Alaska", usStateCodes[0].getState());
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUsStateCensusData_WhenSortedAreaWise_ShouldReturnLeastAreaStateName() {
+        try {
+            HashMap<String, CensusDao> csvUsStateCensuses = usCensusAnalyser.checkCsv(US_CENSUS_FILE);
+            String sortedByValue = usCensusAnalyser.getSortedCensusData(csvUsStateCensuses,StateCensusAnalyser.SortingMode.AREA);
+            UsCensusData[] usStateCodes = new Gson().fromJson(sortedByValue, UsCensusData[].class);
+            Assert.assertEquals("District of Columbia", usStateCodes[usStateCodes.length-1].getState());
+        } catch (CSVBuilderException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
