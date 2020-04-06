@@ -11,6 +11,19 @@ public class CSVStateCensus {
     private Double areaPerKm;
     @CsvBindByName(column = "DensityPerSqKm", required = true)
     private Double densityPerSqKm;
+    private String stateCode = new CsvStateCode().getStateCode();
+
+    public CSVStateCensus() {
+    }
+
+    //Parameterized constructor for initializing instance variables
+    public CSVStateCensus(String stateCode, String stateName, Integer population, Double areaPerKm, Double densityPerSqKm) {
+        this.stateCode = stateCode;
+        this.stateName = stateName;
+        this.population = population;
+        this.areaPerKm = areaPerKm;
+        this.densityPerSqKm = densityPerSqKm;
+    }
 
     public String getStateName() {
         return stateName;
@@ -26,5 +39,9 @@ public class CSVStateCensus {
 
     public Double getDensityPerSqKm() {
         return densityPerSqKm;
+    }
+
+    public String getStateCode() {
+        return stateCode;
     }
 }
