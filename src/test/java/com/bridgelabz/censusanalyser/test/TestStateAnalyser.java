@@ -295,11 +295,24 @@ public class TestStateAnalyser {
     @Test
     public void givenIndianStateCensusCSVFile_WhenSortedPopulationAndDensityWise_ShouldReturnSortedData() throws IOException {
         try {
-            HashMap<String, CensusDao> csvUsStateCensuses = indianCensusAnalyser.checkCsv(CSV_FILE_PATH);
-            String sortedPopulationAndDensityData = indianCensusAnalyser.getSortByPopulationAndDensity(csvUsStateCensuses);
-            CSVStateCensus[] usCensus = new Gson().fromJson(sortedPopulationAndDensityData, CSVStateCensus[].class);
-            Assert.assertEquals("Uttar Pradesh", usCensus[0].getStateName());
-            Assert.assertEquals("Sikkim", usCensus[usCensus.length - 1].getStateName());
+            HashMap<String, CensusDao> csvIndiaStateCensuses = indianCensusAnalyser.checkCsv(CSV_FILE_PATH);
+            String sortedPopulationAndDensityData = indianCensusAnalyser.getSortByPopulationAndDensity(csvIndiaStateCensuses);
+            CSVStateCensus[] indiaCensus = new Gson().fromJson(sortedPopulationAndDensityData, CSVStateCensus[].class);
+            Assert.assertEquals("Uttar Pradesh", indiaCensus[0].getStateName());
+            Assert.assertEquals("Sikkim", indiaCensus[indiaCensus.length - 1].getStateName());
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUsStateCensusCSVFile_WhenSortedPopulationAndDensityWise_ShouldReturnSortedData() throws IOException {
+        try {
+            HashMap<String, CensusDao> csvUsStateCensuses = usCensusAnalyser.checkCsv(US_CENSUS_FILE);
+            String sortedPopulationAndDensityData = usCensusAnalyser.getSortByPopulationAndDensity(csvUsStateCensuses);
+            UsCensusData[] usCensus = new Gson().fromJson(sortedPopulationAndDensityData, UsCensusData[].class);
+            Assert.assertEquals("California", usCensus[0].getState());
+            Assert.assertEquals("Wyoming", usCensus[usCensus.length - 1].getState());
         } catch (CSVBuilderException e) {
             e.printStackTrace();
         }
