@@ -55,15 +55,15 @@ public class CensusDao {
         return null;
     }
 
-    private double getTotalArea() {
+    public double getTotalArea() {
         return areaInSqKm;
     }
 
-    private double getPopulationDensity() {
+    public double getPopulationDensity() {
         return this.densityPerSqKm;
     }
 
-    private double getPopulation() {
+    public double getPopulation() {
         return this.population;
     }
 
